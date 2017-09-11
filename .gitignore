@@ -1,0 +1,5 @@
+# Ignore object, dependency, and executable files.
+*.o
+*.d
+calc
+Dependencies
