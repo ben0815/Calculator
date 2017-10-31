@@ -1,5 +1,6 @@
 # Ignore object, dependency, and executable files.
 *.o
 *.d
+*.swp
 calc
 Dependencies
