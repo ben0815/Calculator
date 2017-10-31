@@ -4,20 +4,29 @@
 
 #include <string>
 
+#include "parser.hpp"
+
 
 class calculator {
 
   public:
 
-    calculator() {}
+    typedef parser::token token;
+
+    calculator()  {}
+
+    calculator(const bool _debug) : m_debug(_debug)  {}
 
     ~calculator() {}
 
-    template<typename T>
-    const T calculate(const std::string _expression);
+    const double calculate(const std::string _expression);
+
+    // Evaluate a binary expression tree.
+    const double evaluate(const binary_expr_tree<token>* _expr_tree);
 
   private:
 
+    bool m_debug{false};
 
 };
 
