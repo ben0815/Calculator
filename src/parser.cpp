@@ -18,19 +18,6 @@ parse(const std::string& _expression) {
     // number.
     else if(is_value(sit)) {
       auto x = parse_value(sit);
-      /*
-      const auto& start = it;
-      auto& end = it;
-
-      while(is_value(*end))
-        ++end;
-
-      const std::string value(start, end);
-
-      std::cout << "v: " << value << std::endl;
-
-      it = end;
-      */
     }
     // Check if the character is a unary operator ('-' as in '-5').
     else if(*sit == '-' and (sit == _expression.cbegin() or is_value(sit - 1))) {
@@ -43,7 +30,7 @@ parse(const std::string& _expression) {
             std::string(1, *sit)));
     }
     else
-      throw parse_error("", "");
+      throw parse_error(_expression, sit, "Unknown symbol.");
   }
 
   if(m_debug)
