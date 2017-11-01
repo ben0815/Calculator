@@ -17,7 +17,10 @@ parse(const std::string& _expression) {
     // If c is the start of a value (number or decimal point) parse the entire
     // number.
     else if(is_value(sit)) {
-      auto x = parse_value(sit);
+      const auto& pair = parse_value(sit, _expression);
+
+      if(pair.second == _expression.cend()) {}
+
     }
     // Check if the character is a unary operator ('-' as in '-5').
     else if(*sit == '-' and (sit == _expression.cbegin() or is_value(sit - 1))) {
@@ -30,7 +33,7 @@ parse(const std::string& _expression) {
             std::string(1, *sit)));
     }
     else
-      throw parse_error(_expression, sit, "Unknown symbol.");
+      throw parse_error(_expression, sit, "Unknown symbol");
   }
 
   if(m_debug)
@@ -49,10 +52,11 @@ construct_tree(const std::vector<token>& _tokens) {
 
 const std::pair<std::string, std::string::const_iterator>
 parser::
-parse_value(std::string::const_iterator _sit) const {
+parse_value(std::string::const_iterator _sit, const std::string& _expression)
+  const {
 
 
-  return std::make_pair("", _sit);
+  return std::make_pair("", _expression.cend());
 }
 
 

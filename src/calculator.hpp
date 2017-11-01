@@ -11,9 +11,10 @@
 // and evaluate expressions.
 class calculator {
 
+    typedef parser::token token;
+
   public:
 
-    typedef parser::token token;
 
     calculator()  {}
 

@@ -56,7 +56,8 @@ class parser {
     // entire integer or floating point number. Return a pair of the number and
     // an iterator to the last character of the number in the expression string.
     const std::pair<std::string, std::string::const_iterator>
-    parse_value(std::string::const_iterator _sit) const;
+    parse_value(std::string::const_iterator _sit, const std::string& _expression)
+    const;
 
     // Returns true if the character pointed to by _sit is a digit or a decimal
     // point signalling the beginning of a floating point number.

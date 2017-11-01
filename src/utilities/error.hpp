@@ -3,9 +3,12 @@
 
 #include <stdexcept>
 #include <string>
+#include <iostream>
 
 // Parse error class so that we can throw specific errors while parsing expressions.
 class parse_error : public std::runtime_error {
+
+  typedef std::string::const_iterator SIT;
 
   public:
 
@@ -14,10 +17,32 @@ class parse_error : public std::runtime_error {
           + _what + "\n") {}
 
     // Report error for specific character in an expression.
-    explicit parse_error(const std::string& _expression,
-        const std::string::const_iterator _sit, const std::string& _what)
+    explicit parse_error(const std::string& _expression, const SIT& _sit,
+        const std::string& _what)
       : std::runtime_error("\nWhere: character '" + std::string(1, *_sit) +
-          "' in expression '" + _expression + "'\nWhat: " + _what + "\n") {}
+          "' in expression '" + format(_sit, _expression) + "'.\nWhat: "
+          + _what + ".\n") {}
+
+    // Report error for specific sbustring in an expression.
+    explicit parse_error(const std::string& _expression, const SIT _start,
+        const SIT _end, const std::string& _what)
+      : std::runtime_error("\nWhere: '" + std::string(_start, _end) +
+          "' in expression '" + highlight(_start, _end, _expression) +
+          "'.\nWhat: " + _what + ".\n") {}
+
+  private:
+
+    // Place ' { } ' around a character pointed to by _sit. Used to indicate the
+    // portion of a string which contains an error.
+    // Also, if the _expression is large cut it off after the error portion.
+    const std::string format(const SIT& _sit, const std::string& _expression)
+      const;
+
+    // Same as above, but wraps a substring in ' { } '.
+    const std::string highlight(const SIT& _start, const SIT& _end,
+        const std::string& _expression)
+      const;
+
 
 };
 

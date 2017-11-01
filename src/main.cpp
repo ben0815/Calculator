@@ -36,7 +36,7 @@ main(int argc, char** argv) {
       result = calc.calculate(line);
     }
     catch (parse_error _pe) {
-      std::cout << "Parse exception: " << _pe.what() << std::endl;
+      std::cout << "Parse error: " << _pe.what() << std::endl;
     }
 
     std::cout << "   = " << result << std::endl;
