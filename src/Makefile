@@ -16,7 +16,7 @@ ifeq ($(debug), 1)
 	CXXFLAGS += -g
 endif
 
-DEPS = -MMD -MF $*.d
+DEPS = -MMD -MF Dependencies/$*.d
 
 # File Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
@@ -37,7 +37,7 @@ calc: $(OBJS)
 .cpp.o: $(SRCS)
 	@echo Compiling $<...
 	@$(CXX) -c $(CXXFLAGS) $(DEPS) $(INC_DIRS) $< -o $@
-	@cat $*.d >> Dependencies
+	@cat Dependencies/$*.d >> Dependencies/Dependencies
 
 # Cleanup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
@@ -46,11 +46,11 @@ clean:
 	@echo Cleaning executables...
 	@rm -f $(OBJS) game
 	@rm $(shell find . -path "*.d")
-	@rm Dependencies
+	@rm Dependencies/Dependencies
 
 # Other Stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 # include automatically generated dependencies
--include Dependencies
+-include Dependencies/Dependencies
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#

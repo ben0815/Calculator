@@ -1,6 +1,9 @@
 # Ignore object, dependency, and executable files.
 *.o
-*.d
 *.swp
+.*
 calc
-Dependencies
+
+
+# Don't ignore this file.
+!.gitignore
