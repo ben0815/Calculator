@@ -2,6 +2,8 @@
 *.o
 *.swp
 .*
+*.d
+Dependencies
 calc
 
 
