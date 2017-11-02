@@ -11,8 +11,6 @@
 // and evaluate expressions.
 class calculator {
 
-    typedef parser::token token;
-
   public:
 
 
@@ -30,7 +28,6 @@ class calculator {
   private:
 
     bool m_debug{false};
-
 };
 
 

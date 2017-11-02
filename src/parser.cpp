@@ -1,7 +1,6 @@
 #include "parser.hpp"
 
-
-const binary_expr_tree<parser::token>*
+const binary_expr_tree<token>*
 parser::
 parse(const std::string& _expression) {
 
@@ -24,12 +23,12 @@ parse(const std::string& _expression) {
     }
     // Check if the character is a unary operator ('-' as in '-5').
     else if(*sit == '-' and (sit == _expression.cbegin() or is_value(sit - 1))) {
-      m_tokens.push_back(std::make_pair(parser::unary_operator,
+      m_tokens.push_back(token(token::unary_operator,
             std::string(1, *sit)));
     }
     // Check for binary operators.
     else if(is_binary_operator(sit)) {
-      m_tokens.push_back(std::make_pair(parser::binary_operator,
+      m_tokens.push_back(token(token::binary_operator,
             std::string(1, *sit)));
     }
     else
@@ -37,26 +36,33 @@ parse(const std::string& _expression) {
   }
 
   if(m_debug)
-    print_tokens();
+    std::cout << "Tokens: " << m_tokens << std::endl;
 
   return nullptr;
 }
 
 
-const binary_expr_tree<parser::token>*
+const binary_expr_tree<token>*
 parser::
 construct_tree(const std::vector<token>& _tokens) {
   return nullptr;
 }
 
 
-const std::pair<std::string, std::string::const_iterator>
+const std::pair<token, std::string::const_iterator>
 parser::
 parse_value(std::string::const_iterator _sit, const std::string& _expression)
   const {
+    // A number can only have one decimal point.
+    bool decimal_point = *_sit == '.';
 
+    std::string number = "";
+    token tok;
 
-  return std::make_pair("", _expression.cend());
+    if(decimal_point)
+      tok = token(token::floating_point, std::string(1, *_sit));
+
+  return std::make_pair(token(), _expression.cend());
 }
 
 
@@ -73,37 +79,3 @@ is_binary_operator(std::string::const_iterator _sit) const {
   return *_sit == '+' or *_sit == '-' or *_sit == '*' or *_sit == '/'
     or *_sit == '^';
 }
-
-
-void
-parser::
-print_tokens() const {
-  std::cout << "Tokens (size: " << m_tokens.size() << "): [ ";
-
-  for(auto it = m_tokens.cbegin(); it != m_tokens.cend(); ++it) {
-    std::cout << '(' << (it->first) << ", " << it->second << ')';
-
-    if(it != m_tokens.cend() - 1)
-      std::cout << ", ";
-  }
-
-  std::cout << " ]" << std::endl;
-}
-
-
-std::ostream&
-operator<<(std::ostream& _os, const parser::type& _type) {
-  if(_type == parser::integer)
-    _os << "integer";
-  else if(_type == parser::floating_point)
-    _os << "floating_point";
-  else if(_type == parser::unary_operator)
-    _os << "unary_operator";
-  else if(_type == parser::binary_operator)
-    _os << "binary_operator";
-  else if(_type == parser::unknown)
-    _os << "unknown";
-
-  return _os;
-}
-

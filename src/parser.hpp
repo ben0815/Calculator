@@ -7,8 +7,10 @@
 #include <vector>
 #include <utility>
 
+#include "token.hpp"
 #include "utilities/binary_expr_tree.hpp"
 #include "utilities/error.hpp"
+#include "utilities/utilities.hpp"
 
 
 // Parses basic math operations for a calculator application.
@@ -26,6 +28,7 @@ class parser {
 
   private:
 
+    /*
     // The type of a token.
     enum type {
       integer,
@@ -35,9 +38,19 @@ class parser {
       unknown
     };
 
+    struct token {
+      token(type _type, const std::string& _symbol)
+        : m_type(_type), m_symbol(_symbol) {}
+
+      type m_type;
+
+      std::string m_symbol = "";
+    };
+    */
+
   public:
 
-    typedef std::pair<type, std::string> token;
+    //typedef std::pair<type, std::string> token;
 
     parser() {}
 
@@ -53,9 +66,10 @@ class parser {
     const binary_expr_tree<token>* construct_tree(const std::vector<token>& _tokens);
 
     // Starting from the beginning of a value (digit or decimal point) parse the
-    // entire integer or floating point number. Return a pair of the number and
-    // an iterator to the last character of the number in the expression string.
-    const std::pair<std::string, std::string::const_iterator>
+    // entire integer or floating point number. Return a pair of the token
+    // containing the new number and an iterator to the last character of the
+    // number in the expression string.
+    const std::pair<token, std::string::const_iterator>
     parse_value(std::string::const_iterator _sit, const std::string& _expression)
     const;
 
@@ -66,11 +80,6 @@ class parser {
     // Returns true if the character pointed to by _sit is a binary
     // operator, namely one of '+', '-', '*', '/' or '^'.
     const bool is_binary_operator(std::string::const_iterator _sit) const;
-
-    void print_tokens() const;
-
-    // Output operator to elegantly print the enum type.
-    friend std::ostream& operator<<(std::ostream& _os, const type& _type);
 
   private:
 
