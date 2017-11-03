@@ -18,8 +18,15 @@ format(const SIT& _sit, const std::string& _expression) const {
 
 const std::string
 parse_error::
-highlight(const SIT& _start, const SIT& _end, const std::string& _expression)
+format(const SIT& _start, const SIT& _end, const std::string& _expression)
   const {
 
-  return "";
+  std::string error = _expression;
+  auto start = error.begin() + std::distance(_expression.cbegin(), _start);
+  auto end = error.begin() + std::distance(_expression.cbegin(), _end);
+
+  error.insert(start, {' ', '{'});
+  error.insert(end + 3, {'}', ' '});
+
+  return error;
 }
