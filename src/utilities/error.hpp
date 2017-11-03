@@ -24,9 +24,9 @@ class parse_error : public std::runtime_error {
           + _what + ".\n") {}
 
     // Report error for specific substring in an expression.
-    explicit parse_error(const std::string& _expression, const SIT _start,
-        const SIT _end, const std::string& _what)
-      : std::runtime_error("\nWhere: '" + std::string(_start, _end) +
+    explicit parse_error(const std::string& _expression, const SIT& _start,
+        const SIT& _end, const std::string& _what)
+      : std::runtime_error("\nWhere: '" + std::string(_start, _end + 1) +
           "' in expression '" + format(_start, _end, _expression) +
           "'.\nWhat: " + _what + ".\n") {}
 
