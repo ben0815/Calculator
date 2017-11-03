@@ -80,7 +80,7 @@ parse_value(SIT& _sit, const std::string& _expression)
   if(value == ".")
     throw parse_error(_expression, start, "A lone decimal point is not a valid value");
 
-  return token(type, std::string(start, _sit));
+  return token(type, value);
 }
 
 
