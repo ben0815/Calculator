@@ -47,16 +47,19 @@ class parser {
     // entire integer or floating point number. Return a token containing the
     // new number
     const token
-    parse_value(SIT& _sit, const std::string& _expression)
+    parse_value(const std::string& _expression, SIT& _sit)
     const;
 
     // Returns true if the character pointed to by _sit is a digit or a decimal
     // point signalling the beginning of a floating point number.
     const bool is_value(const SIT& _sit) const;
 
-    // Returns true if the character pointed to by _sit is a binary
+    const bool is_operator(const SIT& _sit) const;
+
+    // Returns true if the character pointed to by _sit is a valid binary
     // operator, namely one of '+', '-', '*', '/' or '^'.
-    const bool is_binary_operator(const SIT& _sit) const;
+    const bool is_binary_operator(const std::string& _expression, const SIT& _sit)
+      const;
 
   private:
 
