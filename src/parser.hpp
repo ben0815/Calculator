@@ -8,13 +8,12 @@
 #include <utility>
 
 #include "token.hpp"
-#include "utilities/binary_expr_tree.hpp"
-#include "utilities/error.hpp"
-#include "utilities/utilities.hpp"
+#include "binary_expr_tree.hpp"
+#include "error.hpp"
+#include "utilities.hpp"
 
 
 // Parses basic math operations for a calculator application.
-// TODO: Fix this grammar.
 // The grammar is given by:
 // <expr>             ::=  <value> | <value> <binary-operator> <expr> <EOL>
 // <value>            ::= <integer> | <double> | <unary-operator> <value>
@@ -38,10 +37,7 @@ class parser {
 
     // Parse and tokenize an expression and construct and return a binary
     // expression tree.
-    const binary_expr_tree<token>* parse(const std::string& _expression);
-
-    // Construct a binary express tree from a vector of tokens.
-    const binary_expr_tree<token>* construct_tree(const std::vector<token>& _tokens);
+    const binary_expr_tree parse(const std::string& _expression);
 
     // Starting from the beginning of a value (digit or decimal point) parse the
     // entire integer or floating point number. Return a token containing the

@@ -24,6 +24,8 @@ class token {
 
     ~token() {}
 
+    const bool operator>(const token& _other) { return true; }
+
     friend std::ostream& operator<<(std::ostream& _os, const token& _token);
 
     // Output operator to elegantly print the enum type.

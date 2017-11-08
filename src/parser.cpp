@@ -1,6 +1,6 @@
 #include "parser.hpp"
 
-const binary_expr_tree<token>*
+const binary_expr_tree
 parser::
 parse(const std::string& _expression) {
   // Parse and tokenize the expression according to the grammar in the header
@@ -18,6 +18,9 @@ parse(const std::string& _expression) {
 
       m_tokens.push_back(token);
 
+      // parse_value(...) moves sit one past the end of the value. Since this
+      // for loop will increment sit once more we need to decrement it first so
+      // we do not skip any characters or move sit past end().
       --sit;
     }
     // Check if the character is a unary operator ('-' as in '-5').
@@ -37,14 +40,7 @@ parse(const std::string& _expression) {
   if(m_debug)
     std::cout << "Tokens: " << m_tokens << std::endl;
 
-  return nullptr;
-}
-
-
-const binary_expr_tree<token>*
-parser::
-construct_tree(const std::vector<token>& _tokens) {
-  return nullptr;
+  return binary_expr_tree(m_tokens);
 }
 
 

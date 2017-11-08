@@ -3,7 +3,7 @@
 
 const double
 calculator::
-calculate(const std::string _expression) const {
+calculate(const std::string& _expression) const {
   parser p(m_debug);
 
   // Construct a binary expression tree from the input expression.
@@ -17,7 +17,7 @@ calculate(const std::string _expression) const {
 
 const double
 calculator::
-evaluate(const binary_expr_tree<token>* _expr_tree) const {
+evaluate(const binary_expr_tree& _expr_tree) const {
 
   return 1.;
 }

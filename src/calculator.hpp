@@ -5,6 +5,7 @@
 #include <string>
 
 #include "parser.hpp"
+#include "binary_expr_tree.hpp"
 
 
 // Calculator class which utilizes a parser and a binary expression tree to read
@@ -20,10 +21,10 @@ class calculator {
 
     ~calculator() {}
 
-    const double calculate(const std::string _expression) const;
+    const double calculate(const std::string& _expression) const;
 
     // Evaluate a binary expression tree.
-    const double evaluate(const binary_expr_tree<token>* _expr_tree) const;
+    const double evaluate(const binary_expr_tree& _expr_tree) const;
 
   private:
 
