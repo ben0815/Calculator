@@ -10,21 +10,23 @@ class token {
   public:
 
     enum type {
-      integer,
-      floating_point,
-      unary_operator,
-      binary_operator,
+      parenthesis,
+      exponent,
+      multiply,
+      divide,
+      add,
+      subtract,
+      number,
       unknown
     };
 
     token() {}
 
-    token(type _type, const std::string& _symbol)
-      : m_type(_type), m_symbol(_symbol) {}
+    token(type _type, const double& _value = 0) : m_type(_type), m_value(_value) {}
 
     ~token() {}
 
-    const bool operator>(const token& _other) { return true; }
+    const bool is_number() const;
 
     friend std::ostream& operator<<(std::ostream& _os, const token& _token);
 
@@ -35,7 +37,9 @@ class token {
 
     type m_type{unknown};
 
-    std::string m_symbol = "";
+    // Value in the case where the token is a number (integer or floating
+    // point).
+    double m_value{0.};
 };
 
 

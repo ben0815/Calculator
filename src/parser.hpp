@@ -50,13 +50,6 @@ class parser {
     // point signalling the beginning of a floating point number.
     const bool is_value(const SIT& _sit) const;
 
-    const bool is_operator(const SIT& _sit) const;
-
-    // Returns true if the character pointed to by _sit is a valid binary
-    // operator, namely one of '+', '-', '*', '/' or '^'.
-    const bool is_binary_operator(const std::string& _expression, const SIT& _sit)
-      const;
-
   private:
 
     std::vector<token> m_tokens;

@@ -9,8 +9,23 @@ parse(const std::string& _expression) {
     // Skip whitespace.
     if(isspace(*sit))
       continue;
+    // Parse parenthesis.
+    // TODO: Ignore parenthesis for now. Add this support later.
     else if(*sit == '(' or *sit == ')')
       continue;
+    // Parse various operators.
+    else if(*sit == '^')
+      m_tokens.push_back(token(token::exponent));
+    else if(*sit == '*')
+      m_tokens.push_back(token(token::multiply));
+    else if(*sit == '/')
+      m_tokens.push_back(token(token::divide));
+    else if(*sit == '+')
+      m_tokens.push_back(token(token::add));
+    // NOTE: The subtact operator may be a unary operator indicating a negative
+    // number.
+    else if(*sit == '-')
+      m_tokens.push_back(token(token::subtract));
     // If c is the start of a value (number or decimal point) parse the entire
     // number.
     else if(is_value(sit)) {
@@ -22,16 +37,6 @@ parse(const std::string& _expression) {
       // for loop will increment sit once more we need to decrement it first so
       // we do not skip any characters or move sit past end().
       --sit;
-    }
-    // Check if the character is a unary operator ('-' as in '-5').
-    else if(*sit == '-' and (sit == _expression.cbegin() or !is_value(sit - 1))) {
-      m_tokens.push_back(token(token::unary_operator,
-            std::string(1, *sit)));
-    }
-    // Check for binary operators.
-    else if(is_binary_operator(_expression, sit)) {
-      m_tokens.push_back(token(token::binary_operator,
-            std::string(1, *sit)));
     }
     else
       throw parse_error(_expression, sit, "Unknown symbol");
@@ -69,16 +74,12 @@ parse_value(const std::string& _expression, SIT& _sit)
     ++_sit;
   }
 
-  token::type type = token::integer;
-  if(decimal_point)
-    type = token::floating_point;
-
   const auto& value = std::string(start, _sit);
 
   if(value == ".")
     throw parse_error(_expression, start, "A lone decimal point is not a valid value");
 
-  return token(type, value);
+  return token(token::number, std::stod(value));
 }
 
 
@@ -86,30 +87,4 @@ const bool
 parser::
 is_value(const SIT& _sit) const {
   return isdigit(*_sit) or *_sit == '.';
-}
-
-
-const bool
-parser::
-is_operator(const SIT& _sit) const {
-  // Do not check for '-' since this is used when validating a binary operator
-  // and '-' can come directly after a binary operator (e.g. 4+-3 = 1).
-  return *_sit == '+' or *_sit == '*' or *_sit == '/' or *_sit == '^';
-}
-
-
-const bool
-parser::
-is_binary_operator(const std::string& _expression, const SIT& _sit) const {
-  const bool oper = is_operator(_sit) or *_sit == '-';
-
-  if(oper) {
-    if(_sit == _expression.cbegin() or _sit == _expression.cend() - 1)
-      throw parse_error(_expression, _sit,
-          "A binary operator cannot be at the beginning or end of an expression");
-    else if(is_operator(_sit + 1))
-      throw parse_error(_expression, _sit, _sit + 1, "Repeated binary operators");
-  }
-
-  return oper;
 }
