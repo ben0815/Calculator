@@ -14,7 +14,6 @@ class calculator {
 
   public:
 
-
     calculator()  {}
 
     calculator(const bool _debug) : m_debug(_debug)  {}

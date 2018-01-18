@@ -9,6 +9,9 @@ calculate(const std::string& _expression) const {
   // Construct a binary expression tree from the input expression.
   const auto& tree = p.parse(_expression);
 
+  if(m_debug)
+    std::cout << tree << std::endl;
+
   // Evaluate the binary expression tree to produce the result of the
   // expression.
   return evaluate(tree);
