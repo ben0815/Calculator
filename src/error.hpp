@@ -13,8 +13,8 @@ class parse_error : public std::runtime_error {
   public:
 
     explicit parse_error(const std::string& _where, const std::string& _what)
-      : std::runtime_error("Parse Error.\nWhere: " + _where + "\nWhat: " \
-          + _what + "\n") {}
+      : std::runtime_error("Parse Error.\nWhere: " + _where + ".\nWhat: " \
+          + _what + ".\n") {}
 
     // Report error for specific character in an expression.
     explicit parse_error(const std::string& _expression, const SIT& _sit,
@@ -43,6 +43,20 @@ class parse_error : public std::runtime_error {
         const std::string& _expression)
       const;
 
+
+};
+
+
+// Error class to handle issues with the binary tree and binary expression tree.
+class tree_error : public std::runtime_error {
+
+  public:
+
+    explicit tree_error(const std::string& _where, const std::string& _what)
+      : std::runtime_error("Tree Error.\nWhere: " + _where + ".\nWhat: " \
+          + _what + ".\n") {}
+
+  private:
 
 };
 
