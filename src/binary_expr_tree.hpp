@@ -6,6 +6,7 @@
 
 #include "binary_tree.hpp"
 #include "token.hpp"
+#include "error.hpp"
 
 
 class binary_expr_tree : public binary_tree<token> {
@@ -15,13 +16,13 @@ class binary_expr_tree : public binary_tree<token> {
     binary_expr_tree() {}
 
     // Construct a binary expression tree with a set of tokens in an expression.
+    // NOTE: Token must have the less than operator (<) defined.
     binary_expr_tree(const std::vector<token>& _elements);
 
     ~binary_expr_tree() {}
 
-    // Find the highest order operator towards the middle of the input vector.
-    const std::vector<token>::const_iterator
-      find_highest_order(const std::vector<token>& _tokens);
+    typename binary_tree<token>::Node*
+      build_tree(const std::vector<token>& _elements);
 
   private:
 

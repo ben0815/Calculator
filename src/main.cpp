@@ -38,6 +38,9 @@ main(int argc, char** argv) {
     catch (parse_error _pe) {
       std::cout << "Parse error: " << _pe.what() << std::endl;
     }
+    catch (tree_error _te) {
+      std::cout << "Tree error: " << _te.what() << std::endl;
+    }
 
     std::cout << "   = " << result << std::endl;
   }
