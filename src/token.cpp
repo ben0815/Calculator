@@ -40,3 +40,10 @@ token::
 is_number() const {
   return m_type == token::number;
 }
+
+
+const bool
+token::
+operator<(const token& _other) const {
+  return m_type < _other.m_type;
+}

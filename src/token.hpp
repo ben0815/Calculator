@@ -9,13 +9,15 @@ class token {
 
   public:
 
+    // The ordering of these types is specific. It allows us to rank the token
+    // according to PEMDAS.
     enum type {
-      parenthesis,
-      exponent,
-      multiply,
-      divide,
       add,
       subtract,
+      multiply,
+      divide,
+      exponent,
+      parenthesis,
       number,
       unknown
     };
@@ -27,6 +29,8 @@ class token {
     ~token() {}
 
     const bool is_number() const;
+
+    const bool operator<(const token& _other) const;
 
     friend std::ostream& operator<<(std::ostream& _os, const token& _token);
 
