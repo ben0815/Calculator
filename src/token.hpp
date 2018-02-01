@@ -2,6 +2,7 @@
 #define TOKEN_HPP_
 
 #include <string>
+#include <limits>
 #include <iostream>
 
 
@@ -24,13 +25,24 @@ class token {
 
     token() {}
 
-    token(type _type, const double& _value = 0) : m_type(_type), m_value(_value) {}
+    token(type _type, const double& _value = std::numeric_limits<double>::max())
+      : m_type(_type), m_value(_value) {}
 
     ~token() {}
 
+    const double get_value() const;
+
+    type get_type() const;
+
     const bool is_number() const;
 
+    const bool is_operator() const;
+
     const bool operator<(const token& _other) const;
+
+    operator std::string() const;
+
+    static const std::string stringify(const token::type& _type);
 
     friend std::ostream& operator<<(std::ostream& _os, const token& _token);
 
@@ -43,7 +55,7 @@ class token {
 
     // Value in the case where the token is a number (integer or floating
     // point).
-    double m_value{0.};
+    double m_value{std::numeric_limits<double>::max()};
 };
 
 

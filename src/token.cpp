@@ -14,24 +14,23 @@ operator<<(std::ostream& _os, const token& _token) {
 
 std::ostream&
 operator<<(std::ostream& _os, const token::type& _type) {
-  if(_type == token::parenthesis)
-    _os << "parenthesis";
-  else if(_type == token::exponent)
-    _os << "exponent";
-  else if(_type == token::multiply)
-    _os << "multiply";
-  else if(_type == token::divide)
-    _os << "divide";
-  else if(_type == token::add)
-    _os << "add";
-  else if(_type == token::subtract)
-    _os << "subtract";
-  else if(_type == token::number)
-    _os << "number";
-  else if(_type == token::unknown)
-    _os << "unknown";
+  _os << token::stringify(_type);
 
   return _os;
+}
+
+
+const double
+token::
+get_value() const {
+  return m_value;
+}
+
+
+token::type
+token::
+get_type() const {
+  return m_type;
 }
 
 
@@ -44,6 +43,50 @@ is_number() const {
 
 const bool
 token::
+is_operator() const {
+  return !this->is_number();
+}
+
+
+const bool
+token::
 operator<(const token& _other) const {
   return m_type < _other.m_type;
+}
+
+
+token::
+operator std::string() const {
+  // Check if this token is a value or an operator.
+
+  // Operator
+  if(m_value == std::numeric_limits<double>::max())
+    return stringify(this->m_type);
+
+  // Value
+  return std::to_string(m_value);
+}
+
+
+const std::string
+token::
+stringify(const token::type& _type) {
+  if(_type == token::parenthesis)
+    return "parenthesis";
+  else if(_type == token::exponent)
+    return "exponent";
+  else if(_type == token::multiply)
+    return "multiply";
+  else if(_type == token::divide)
+    return "divide";
+  else if(_type == token::add)
+    return "add";
+  else if(_type == token::subtract)
+    return "subtract";
+  else if(_type == token::number)
+    return "number";
+  else if(_type == token::unknown)
+    return "unknown";
+
+  return "";
 }
