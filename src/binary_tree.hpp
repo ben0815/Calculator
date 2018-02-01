@@ -17,6 +17,9 @@ class binary_tree {
 
       Node(const T& _element) : element(_element) {}
 
+      // A leaf doesn't have a left or right child.
+      const bool is_leaf() const { return !(left or right); }
+
       Node* left{nullptr};
       Node* right{nullptr};
 
@@ -31,7 +34,7 @@ class binary_tree {
 
     const size_t size() const { return m_size; }
 
-    const Node* root() const { return m_root; }
+    Node* get_root() const { return m_root; }
 
   protected:
 
@@ -42,12 +45,12 @@ class binary_tree {
 
     Node* m_root{nullptr};
 
+    size_t m_size{0};
+
   private:
 
     // Helper for destructing the tree.
     void delete_tree(const Node* _root);
-
-    size_t m_size{0};
 };
 
 
@@ -90,13 +93,5 @@ set_root(const T& _element) {
   ++m_size;
 }
 
-
-template<class T>
-void
-binary_tree<T>::
-add_node(Node* _where, Node* _what) {
-  _where = _what;
-  ++m_size;
-}
 
 #endif
