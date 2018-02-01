@@ -20,10 +20,7 @@ class calculator {
 
     ~calculator() {}
 
-    const double calculate(const std::string& _expression) const;
-
-    // Evaluate a binary expression tree.
-    const double evaluate(const binary_expr_tree& _expr_tree) const;
+    const double calculate(const std::string& _expression);
 
   private:
 

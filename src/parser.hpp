@@ -37,7 +37,7 @@ class parser {
 
     // Parse and tokenize an expression and construct and return a binary
     // expression tree.
-    const binary_expr_tree parse(const std::string& _expression);
+    binary_expr_tree parse(const std::string& _expression);
 
     // Starting from the beginning of a value (digit or decimal point) parse the
     // entire integer or floating point number. Return a token containing the

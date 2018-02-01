@@ -3,24 +3,16 @@
 
 const double
 calculator::
-calculate(const std::string& _expression) const {
+calculate(const std::string& _expression) {
   parser p(m_debug);
 
   // Construct a binary expression tree from the input expression.
-  const auto& tree = p.parse(_expression);
+  auto tree = p.parse(_expression);
 
   if(m_debug)
     std::cout << tree << std::endl;
 
   // Evaluate the binary expression tree to produce the result of the
-  // expression.
-  return evaluate(tree);
-}
-
-
-const double
-calculator::
-evaluate(const binary_expr_tree& _expr_tree) const {
-
-  return 1.;
+  // expression in the remaining root node.
+  return tree.evaluate_tree();
 }

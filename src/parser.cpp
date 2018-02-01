@@ -1,6 +1,6 @@
 #include "parser.hpp"
 
-const binary_expr_tree
+binary_expr_tree
 parser::
 parse(const std::string& _expression) {
   // Parse and tokenize the expression according to the grammar in the header
