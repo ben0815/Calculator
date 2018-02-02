@@ -4,6 +4,10 @@
 binary_expr_tree::
 binary_expr_tree(const std::vector<token>& _elements, const bool _debug)
   : m_debug(_debug) {
+
+  if(m_debug)
+    std::cout << "Building tree..." << std::endl;
+
   // Recursively build the expression tree.
   const auto root = build_tree(_elements);
 
@@ -84,8 +88,13 @@ evaluate_subtree(typename binary_tree<token>::Node* _node) {
   const auto l_child = _node->left,
              r_child = _node->right;
 
+  if(m_debug)
+    std::cout << "Evaluating node '" << _node->element << "' with children '"
+      << l_child->element << "' and '" << r_child->element << "'." << std::endl;
+
   // Case where _node is an operator its left child is a leaf.
   // Traverse down the right subtree.
+  /*
   if(l_child->is_leaf() and !r_child->is_leaf())
     evaluate_subtree(r_child);
 
@@ -93,6 +102,13 @@ evaluate_subtree(typename binary_tree<token>::Node* _node) {
   // Traverse down the left subtree.
   if(!l_child->is_leaf() and r_child->is_leaf())
     evaluate_subtree(l_child);
+    */
+
+  if(!l_child->is_leaf())
+    evaluate_subtree(l_child);
+
+  if(!r_child->is_leaf())
+    evaluate_subtree(r_child);
 
   // Case where _node is an operator and has two leaf children (numbers).
   if(l_child->is_leaf() and r_child->is_leaf()) {
