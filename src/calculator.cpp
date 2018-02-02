@@ -10,7 +10,7 @@ calculate(const std::string& _expression) {
   auto tree = p.parse(_expression);
 
   if(m_debug)
-    std::cout << tree << std::endl;
+    std::cout << "Build tree finished...\n" << tree << std::endl;
 
   // Evaluate the binary expression tree to produce the result of the
   // expression in the remaining root node.

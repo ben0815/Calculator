@@ -43,7 +43,7 @@ parse(const std::string& _expression) {
   }
 
   if(m_debug)
-    std::cout << "Tokens: " << m_tokens << std::endl;
+    std::cout << "Tokens: " << m_tokens << std::endl << std::endl;
 
   return binary_expr_tree(m_tokens, m_debug);
 }
