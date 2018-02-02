@@ -1,5 +1,7 @@
 # Calculator
 
+Simple command line expression calculator. Currently it evaluates expressions according to standard order of operations, disregarding parenthesis.
+
 ### Installation
 
 1. Clone the repository: `git clone git@github.com:ben0815/Calculator.git`
