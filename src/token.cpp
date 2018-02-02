@@ -4,7 +4,7 @@
 std::ostream&
 operator<<(std::ostream& _os, const token& _token) {
   if(_token.is_number())
-    _os << '(' << _token.m_type << ", " << _token.m_value << ')';
+    _os <<  _token.m_value;
   else
     _os << _token.m_type;
 
