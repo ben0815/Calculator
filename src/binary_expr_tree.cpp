@@ -92,18 +92,6 @@ evaluate_subtree(typename binary_tree<token>::Node* _node) {
     std::cout << "Evaluating node '" << _node->element << "' with children '"
       << l_child->element << "' and '" << r_child->element << "'." << std::endl;
 
-  // Case where _node is an operator its left child is a leaf.
-  // Traverse down the right subtree.
-  /*
-  if(l_child->is_leaf() and !r_child->is_leaf())
-    evaluate_subtree(r_child);
-
-  // Case where _node is an operator its right child is a leaf.
-  // Traverse down the left subtree.
-  if(!l_child->is_leaf() and r_child->is_leaf())
-    evaluate_subtree(l_child);
-    */
-
   if(!l_child->is_leaf())
     evaluate_subtree(l_child);
 
